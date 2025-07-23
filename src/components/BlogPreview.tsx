@@ -109,10 +109,10 @@ export const BlogPreview = ({ blogData, isGenerating }: BlogPreviewProps) => {
 
   return (
     <Card className="h-full flex flex-col animate-fade-up">
-      <CardHeader className="border-b border-border">
+      <CardHeader className="border-b border-border p-3 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-semibold">Blog Preview</h2>
+            <h2 className="text-base font-semibold">Blog Preview</h2>
             <Badge variant="secondary" className="text-xs">
               <Eye className="w-3 h-3 mr-1" />
               Preview
@@ -123,7 +123,7 @@ export const BlogPreview = ({ blogData, isGenerating }: BlogPreviewProps) => {
               variant="outline"
               size="sm"
               onClick={handleEdit}
-              className="h-8"
+              className="h-8 px-2 text-xs"
             >
               <Edit3 className="w-3 h-3 mr-1" />
               {isEditing ? 'Save' : 'Edit'}
@@ -132,7 +132,7 @@ export const BlogPreview = ({ blogData, isGenerating }: BlogPreviewProps) => {
               variant="outline"
               size="sm"
               onClick={handleCopy}
-              className="h-8"
+              className="h-8 px-2 text-xs"
             >
               <Copy className="w-3 h-3 mr-1" />
               Copy
@@ -141,65 +141,56 @@ export const BlogPreview = ({ blogData, isGenerating }: BlogPreviewProps) => {
               variant="outline"
               size="sm"
               onClick={handleDownload}
-              className="h-8"
+              className="h-8 px-2 text-xs"
             >
               <Download className="w-3 h-3 mr-1" />
-              Download
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleShare}
-              className="h-8"
-            >
-              <Share2 className="w-3 h-3 mr-1" />
-              Share
+              Save
             </Button>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1 overflow-y-auto p-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Blog Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-4 leading-tight">
+      <CardContent className="flex-1 overflow-y-auto p-4 mobile-scroll">
+        <div className="max-w-full mx-auto">{/* Removed max-w-4xl for mobile */}
+          {/* Blog Header - Mobile optimized */}
+          <div className="mb-6">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">
               {blogData.title}
             </h1>
             
-            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+            <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
               <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
+                <Calendar className="w-3 h-3" />
                 {blogData.createdAt.toLocaleDateString()}
               </div>
               <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
+                <Clock className="w-3 h-3" />
                 {blogData.estimatedReadTime} min read
               </div>
             </div>
 
-            <div className="flex gap-2 mb-6">
+            <div className="flex flex-wrap gap-1 mb-4">
               {blogData.tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
+                <Badge key={tag} variant="outline" className="text-xs px-2 py-1">
                   {tag}
                 </Badge>
               ))}
             </div>
 
-            <Separator className="my-6" />
+            <Separator className="my-4" />
           </div>
 
-          {/* Blog Content */}
-          <div className="prose prose-gray dark:prose-invert max-w-none">
+          {/* Blog Content - Mobile optimized */}
+          <div className="prose prose-sm prose-gray dark:prose-invert max-w-none">
             {isEditing ? (
               <textarea
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
-                className="w-full min-h-[400px] p-4 border border-input rounded-md bg-background text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                className="w-full min-h-[300px] p-3 border border-input rounded-md bg-background text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring text-sm"
                 placeholder="Edit your blog content..."
               />
             ) : (
-              <div className="whitespace-pre-wrap leading-relaxed text-foreground">
+              <div className="whitespace-pre-wrap leading-relaxed text-foreground text-sm">
                 {blogData.content}
               </div>
             )}

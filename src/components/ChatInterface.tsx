@@ -109,44 +109,48 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
-      <div className="border-b border-chat-border bg-card p-4">
+      {/* Mobile-optimized Header */}
+      <div className="border-b border-chat-border bg-card p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
               <Bot className="w-4 h-4 text-primary-foreground" />
             </div>
             <div>
-              <h2 className="font-semibold text-foreground">AI Blog Assistant</h2>
-              <p className="text-sm text-muted-foreground">Ready to help create your blog</p>
+              <h2 className="font-semibold text-foreground text-sm">AI Blog Assistant</h2>
+              <p className="text-xs text-muted-foreground">Ready to help create your blog</p>
             </div>
           </div>
-          <Button onClick={handleGenerateBlog} className="animate-pulse-glow">
+          <Button 
+            onClick={handleGenerateBlog} 
+            size="sm"
+            className="h-8 px-3 text-xs animate-pulse-glow"
+          >
             Generate Blog
           </Button>
         </div>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-chat-background">
+      {/* Messages with mobile-optimized scrolling */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-chat-background mobile-scroll">
         {messages.map((message) => (
           <div
             key={message.id}
             className={cn(
-              "flex gap-3 animate-fade-up",
+              "flex gap-2 animate-fade-up",
               message.type === 'user' ? "justify-end" : "justify-start"
             )}
           >
             {message.type === 'ai' && (
-              <Avatar className="w-8 h-8 mt-1">
+              <Avatar className="w-7 h-7 mt-1 flex-shrink-0">
                 <AvatarFallback className="bg-gradient-to-r from-primary to-primary-glow text-primary-foreground">
-                  <Bot className="w-4 h-4" />
+                  <Bot className="w-3 h-3" />
                 </AvatarFallback>
               </Avatar>
             )}
             
             <div className={cn(
-              "max-w-[70%] space-y-2",
+              "max-w-[85%] space-y-1",
               message.type === 'user' ? "order-last" : ""
             )}>
               <Card className={cn(
@@ -155,7 +159,7 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
                   ? "bg-chat-user-bubble border-chat-border" 
                   : "bg-chat-ai-bubble border-chat-border"
               )}>
-                <p className="text-sm text-foreground whitespace-pre-wrap">{message.content}</p>
+                <p className="text-sm text-foreground whitespace-pre-wrap leading-relaxed">{message.content}</p>
                 {message.images && (
                   <div className="grid grid-cols-2 gap-2 mt-2">
                     {message.images.map((image, index) => (
@@ -163,7 +167,7 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
                         key={index}
                         src={image}
                         alt={`Uploaded ${index + 1}`}
-                        className="rounded-md max-h-32 object-cover"
+                        className="rounded-md max-h-24 object-cover w-full"
                       />
                     ))}
                   </div>
@@ -175,9 +179,9 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
             </div>
 
             {message.type === 'user' && (
-              <Avatar className="w-8 h-8 mt-1 order-last">
+              <Avatar className="w-7 h-7 mt-1 order-last flex-shrink-0">
                 <AvatarFallback className="bg-secondary text-secondary-foreground">
-                  <User className="w-4 h-4" />
+                  <User className="w-3 h-3" />
                 </AvatarFallback>
               </Avatar>
             )}
@@ -185,10 +189,10 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
         ))}
         
         {isLoading && (
-          <div className="flex gap-3 animate-fade-up">
-            <Avatar className="w-8 h-8 mt-1">
+          <div className="flex gap-2 animate-fade-up">
+            <Avatar className="w-7 h-7 mt-1">
               <AvatarFallback className="bg-gradient-to-r from-primary to-primary-glow text-primary-foreground">
-                <Bot className="w-4 h-4" />
+                <Bot className="w-3 h-3" />
               </AvatarFallback>
             </Avatar>
             <Card className="bg-chat-ai-bubble border-chat-border p-3">
@@ -204,20 +208,20 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area */}
-      <div className="border-t border-chat-border bg-card p-4">
+      {/* Mobile-optimized Input Area */}
+      <div className="border-t border-chat-border bg-card p-3 flex-shrink-0 safe-area-pb">
         {selectedImages.length > 0 && (
-          <div className="flex gap-2 mb-3 p-2 bg-muted rounded-lg">
+          <div className="flex gap-2 mb-3 p-2 bg-muted rounded-lg overflow-x-auto">
             {selectedImages.map((file, index) => (
-              <div key={index} className="relative">
+              <div key={index} className="relative flex-shrink-0">
                 <img
                   src={URL.createObjectURL(file)}
                   alt={`Selected ${index + 1}`}
-                  className="w-16 h-16 object-cover rounded-md"
+                  className="w-12 h-12 object-cover rounded-md"
                 />
                 <button
                   onClick={() => removeImage(index)}
-                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-4 h-4 flex items-center justify-center text-xs"
                 >
                   ×
                 </button>
@@ -234,10 +238,10 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Tell me about your blog idea..."
-              className="min-h-[44px] max-h-32 resize-none pr-20 bg-background border-input"
+              className="min-h-[44px] max-h-24 resize-none pr-12 bg-background border-input text-sm"
               disabled={isLoading}
             />
-            <div className="absolute right-2 bottom-2 flex gap-1">
+            <div className="absolute right-2 bottom-2">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -252,7 +256,7 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
                 variant="ghost"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isLoading}
-                className="h-8 w-8 p-0"
+                className="h-7 w-7 p-0"
               >
                 <ImageIcon className="w-4 h-4" />
               </Button>
@@ -261,7 +265,7 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           <Button
             onClick={handleSend}
             disabled={isLoading || (!inputValue.trim() && selectedImages.length === 0)}
-            className="h-11 w-11 p-0"
+            className="h-11 w-11 p-0 flex-shrink-0"
           >
             <Send className="w-4 h-4" />
           </Button>
