@@ -215,29 +215,8 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           />
         </div>
 
-        {/* Image preview */}
-        {selectedImages.length > 0 && (
-          <div className="flex gap-1 mb-2 p-2 bg-muted/50 rounded overflow-x-auto">
-            {selectedImages.map((file, index) => (
-              <div key={index} className="relative flex-shrink-0">
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt={`Selected ${index + 1}`}
-                  className="w-12 h-12 object-cover rounded"
-                />
-                <button
-                  onClick={() => removeImage(index)}
-                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-4 h-4 flex items-center justify-center text-xs"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-        
-        {/* Horizontal controls: Plus button, Chat preview, Send button */}
-        <div className="flex items-center justify-between">
+        {/* Horizontal controls: Plus button, Image preview, Chat preview, Send button */}
+        <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             {/* Plus button for images */}
             <input
@@ -254,12 +233,33 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
               variant="ghost"
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
-              className="h-8 w-8 p-0 rounded-full hover:bg-muted/50"
+              className="h-8 w-8 p-0 rounded-full hover:bg-muted/50 flex-shrink-0"
             >
               <Plus className="w-4 h-4" />
             </Button>
             
-            {/* Chat preview placeholder */}
+            {/* Image preview */}
+            {selectedImages.length > 0 && (
+              <div className="flex gap-1 max-w-[120px] overflow-x-auto">
+                {selectedImages.map((file, index) => (
+                  <div key={index} className="relative flex-shrink-0">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Selected ${index + 1}`}
+                      className="w-6 h-6 object-cover rounded"
+                    />
+                    <button
+                      onClick={() => removeImage(index)}
+                      className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-3 h-3 flex items-center justify-center text-xs"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Chat preview */}
             <span className="text-xs text-muted-foreground">
               {inputValue.length > 0 ? `${inputValue.length} chars` : 'Start typing...'}
             </span>
@@ -269,7 +269,7 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           <Button
             onClick={handleSend}
             disabled={isLoading || (!inputValue.trim() && selectedImages.length === 0)}
-            className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90"
+            className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90 flex-shrink-0"
           >
             <ArrowUp className="w-4 h-4" fill="currentColor" />
           </Button>
