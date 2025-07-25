@@ -93,10 +93,11 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
+    // Enter alone will create new line (default textarea behavior)
   };
 
   const handleGenerateBlog = () => {
@@ -201,18 +202,54 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
 
       {/* Lovable-style Input Area */}
       <div className="border-t border-chat-border bg-card p-2 flex-shrink-0 safe-area-pb">
+        {/* Main input */}
+        <div className="mb-2">
+          <Textarea
+            ref={textareaRef}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder="Message AI... (Shift+Enter to send)"
+            className="min-h-[80px] max-h-32 resize-none bg-background/50 border-input/50 text-sm py-3 px-3 rounded-lg focus:bg-background transition-colors w-full"
+            disabled={isLoading}
+          />
+        </div>
+
+        {/* Plus button for images */}
+        <div className="flex items-center justify-between mb-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageSelect}
+            className="hidden"
+          />
+          <Button
+            type="button"
+            size="sm"
+            variant="ghost"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isLoading}
+            className="h-8 w-8 p-0 rounded-full hover:bg-muted/50"
+          >
+            <ImageIcon className="w-4 h-4" />
+          </Button>
+        </div>
+
+        {/* Image preview */}
         {selectedImages.length > 0 && (
-          <div className="flex gap-1 mb-2 p-1 bg-muted/50 rounded overflow-x-auto">
+          <div className="flex gap-1 mb-2 p-2 bg-muted/50 rounded overflow-x-auto">
             {selectedImages.map((file, index) => (
               <div key={index} className="relative flex-shrink-0">
                 <img
                   src={URL.createObjectURL(file)}
                   alt={`Selected ${index + 1}`}
-                  className="w-8 h-8 object-cover rounded"
+                  className="w-12 h-12 object-cover rounded"
                 />
                 <button
                   onClick={() => removeImage(index)}
-                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-3 h-3 flex items-center justify-center text-xs"
+                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-4 h-4 flex items-center justify-center text-xs"
                 >
                   ×
                 </button>
@@ -221,42 +258,15 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           </div>
         )}
         
-        <div className="flex gap-1 items-end">
-          <div className="flex-1 relative">
-            <Textarea
-              ref={textareaRef}
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyPress}
-              placeholder="Message AI..."
-              className="min-h-[36px] max-h-20 resize-none pr-8 bg-background/50 border-input/50 text-sm py-2 px-3 rounded-lg focus:bg-background transition-colors"
-              disabled={isLoading}
-            />
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleImageSelect}
-              className="hidden"
-            />
-            <Button
-              type="button"
-              size="sm"
-              variant="ghost"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isLoading}
-              className="absolute right-1 bottom-1 h-6 w-6 p-0 hover:bg-muted/50"
-            >
-              <ImageIcon className="w-3 h-3" />
-            </Button>
-          </div>
+        {/* Send button */}
+        <div className="flex justify-end">
           <Button
             onClick={handleSend}
             disabled={isLoading || (!inputValue.trim() && selectedImages.length === 0)}
-            className="h-9 w-9 p-0 flex-shrink-0 rounded-lg"
+            className="h-9 px-4 rounded-lg"
           >
-            <Send className="w-3 h-3" />
+            <Send className="w-4 h-4 mr-2" />
+            Send
           </Button>
         </div>
       </div>
