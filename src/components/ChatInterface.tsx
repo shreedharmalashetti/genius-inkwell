@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Send, Image as ImageIcon, Paperclip, Bot, User } from "lucide-react";
+import { Send, Image as ImageIcon, Paperclip, Bot, User, ArrowUp, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 
@@ -215,28 +215,6 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           />
         </div>
 
-        {/* Plus button for images */}
-        <div className="flex items-center justify-between mb-2">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageSelect}
-            className="hidden"
-          />
-          <Button
-            type="button"
-            size="sm"
-            variant="ghost"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isLoading}
-            className="h-8 w-8 p-0 rounded-full hover:bg-muted/50"
-          >
-            <ImageIcon className="w-4 h-4" />
-          </Button>
-        </div>
-
         {/* Image preview */}
         {selectedImages.length > 0 && (
           <div className="flex gap-1 mb-2 p-2 bg-muted/50 rounded overflow-x-auto">
@@ -258,15 +236,42 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           </div>
         )}
         
-        {/* Send button */}
-        <div className="flex justify-end">
+        {/* Horizontal controls: Plus button, Chat preview, Send button */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {/* Plus button for images */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageSelect}
+              className="hidden"
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isLoading}
+              className="h-8 w-8 p-0 rounded-full hover:bg-muted/50"
+            >
+              <Plus className="w-4 h-4" />
+            </Button>
+            
+            {/* Chat preview placeholder */}
+            <span className="text-xs text-muted-foreground">
+              {inputValue.length > 0 ? `${inputValue.length} chars` : 'Start typing...'}
+            </span>
+          </div>
+          
+          {/* Send button */}
           <Button
             onClick={handleSend}
             disabled={isLoading || (!inputValue.trim() && selectedImages.length === 0)}
-            className="h-9 px-4 rounded-lg"
+            className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90"
           >
-            <Send className="w-4 h-4 mr-2" />
-            Send
+            <ArrowUp className="w-4 h-4" fill="currentColor" />
           </Button>
         </div>
       </div>
