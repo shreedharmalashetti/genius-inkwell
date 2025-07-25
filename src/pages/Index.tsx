@@ -5,7 +5,14 @@ import { Sparkles, MessageSquare, ImageIcon, Zap, ArrowRight, Bot, PenTool } fro
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-chat-background to-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-card to-chat-background relative overflow-hidden">
+      {/* Fire animation background */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-primary to-primary-glow rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-primary-glow to-primary rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-32 left-1/3 w-40 h-40 bg-gradient-to-r from-primary to-primary-glow rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
+      <div className="relative z-10">
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
@@ -140,6 +147,7 @@ const Index = () => {
             </Link>
           </CardContent>
         </Card>
+      </div>
       </div>
     </div>
   );

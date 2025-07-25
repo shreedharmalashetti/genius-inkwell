@@ -110,24 +110,15 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
   return (
     <div className="flex flex-col h-full">
       {/* Mobile-optimized Header */}
-      <div className="border-b border-chat-border bg-card p-4 flex-shrink-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
-              <Bot className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <div>
-              <h2 className="font-semibold text-foreground text-sm">AI Blog Assistant</h2>
-              <p className="text-xs text-muted-foreground">Ready to help create your blog</p>
-            </div>
+      <div className="border-b border-chat-border bg-card p-3 flex-shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="w-7 h-7 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
+            <Bot className="w-3 h-3 text-primary-foreground" />
           </div>
-          <Button 
-            onClick={handleGenerateBlog} 
-            size="sm"
-            className="h-8 px-3 text-xs animate-pulse-glow"
-          >
-            Generate Blog
-          </Button>
+          <div>
+            <h2 className="font-medium text-foreground text-sm">AI Blog Assistant</h2>
+            <p className="text-xs text-muted-foreground">Ready to help create your blog</p>
+          </div>
         </div>
       </div>
 
@@ -208,20 +199,20 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Mobile-optimized Input Area */}
-      <div className="border-t border-chat-border bg-card p-3 flex-shrink-0 safe-area-pb">
+      {/* Lovable-style Input Area */}
+      <div className="border-t border-chat-border bg-card p-2 flex-shrink-0 safe-area-pb">
         {selectedImages.length > 0 && (
-          <div className="flex gap-2 mb-3 p-2 bg-muted rounded-lg overflow-x-auto">
+          <div className="flex gap-1 mb-2 p-1 bg-muted/50 rounded overflow-x-auto">
             {selectedImages.map((file, index) => (
               <div key={index} className="relative flex-shrink-0">
                 <img
                   src={URL.createObjectURL(file)}
                   alt={`Selected ${index + 1}`}
-                  className="w-12 h-12 object-cover rounded-md"
+                  className="w-8 h-8 object-cover rounded"
                 />
                 <button
                   onClick={() => removeImage(index)}
-                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-4 h-4 flex items-center justify-center text-xs"
+                  className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-3 h-3 flex items-center justify-center text-xs"
                 >
                   ×
                 </button>
@@ -230,44 +221,42 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
           </div>
         )}
         
-        <div className="flex gap-2">
+        <div className="flex gap-1 items-end">
           <div className="flex-1 relative">
             <Textarea
               ref={textareaRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder="Tell me about your blog idea..."
-              className="min-h-[44px] max-h-24 resize-none pr-12 bg-background border-input text-sm"
+              placeholder="Message AI..."
+              className="min-h-[36px] max-h-20 resize-none pr-8 bg-background/50 border-input/50 text-sm py-2 px-3 rounded-lg focus:bg-background transition-colors"
               disabled={isLoading}
             />
-            <div className="absolute right-2 bottom-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageSelect}
-                className="hidden"
-              />
-              <Button
-                type="button"
-                size="sm"
-                variant="ghost"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isLoading}
-                className="h-7 w-7 p-0"
-              >
-                <ImageIcon className="w-4 h-4" />
-              </Button>
-            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageSelect}
+              className="hidden"
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isLoading}
+              className="absolute right-1 bottom-1 h-6 w-6 p-0 hover:bg-muted/50"
+            >
+              <ImageIcon className="w-3 h-3" />
+            </Button>
           </div>
           <Button
             onClick={handleSend}
             disabled={isLoading || (!inputValue.trim() && selectedImages.length === 0)}
-            className="h-11 w-11 p-0 flex-shrink-0"
+            className="h-9 w-9 p-0 flex-shrink-0 rounded-lg"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-3 h-3" />
           </Button>
         </div>
       </div>

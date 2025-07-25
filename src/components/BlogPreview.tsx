@@ -109,42 +109,25 @@ export const BlogPreview = ({ blogData, isGenerating }: BlogPreviewProps) => {
 
   return (
     <Card className="h-full flex flex-col animate-fade-up">
-      <CardHeader className="border-b border-border p-3 flex-shrink-0">
+      <CardHeader className="border-b border-border p-2 flex-shrink-0">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h2 className="text-base font-semibold">Blog Preview</h2>
-            <Badge variant="secondary" className="text-xs">
-              <Eye className="w-3 h-3 mr-1" />
-              Preview
-            </Badge>
-          </div>
+          <h2 className="text-sm font-medium">Preview</h2>
           <div className="flex gap-1">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
               onClick={handleEdit}
-              className="h-8 px-2 text-xs"
+              className="h-7 px-2 text-xs"
             >
-              <Edit3 className="w-3 h-3 mr-1" />
-              {isEditing ? 'Save' : 'Edit'}
+              <Edit3 className="w-3 h-3" />
             </Button>
             <Button
-              variant="outline"
-              size="sm"
-              onClick={handleCopy}
-              className="h-8 px-2 text-xs"
-            >
-              <Copy className="w-3 h-3 mr-1" />
-              Copy
-            </Button>
-            <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
               onClick={handleDownload}
-              className="h-8 px-2 text-xs"
+              className="h-7 px-2 text-xs"
             >
-              <Download className="w-3 h-3 mr-1" />
-              Save
+              <Download className="w-3 h-3" />
             </Button>
           </div>
         </div>
@@ -190,9 +173,10 @@ export const BlogPreview = ({ blogData, isGenerating }: BlogPreviewProps) => {
                 placeholder="Edit your blog content..."
               />
             ) : (
-              <div className="whitespace-pre-wrap leading-relaxed text-foreground text-sm">
-                {blogData.content}
-              </div>
+              <div 
+                className="leading-relaxed text-foreground text-sm prose prose-sm prose-invert max-w-none"
+                dangerouslySetInnerHTML={{ __html: blogData.content }}
+              />
             )}
           </div>
         </div>
