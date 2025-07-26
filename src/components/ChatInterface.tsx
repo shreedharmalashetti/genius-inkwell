@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Send, Image as ImageIcon, Paperclip, Bot, User, ArrowUp, Plus } from "lucide-react";
+import { Send, Image as ImageIcon, Paperclip, Bot, User, ArrowUp, Plus, MessageSquare, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 
@@ -17,9 +17,12 @@ interface Message {
 
 interface ChatInterfaceProps {
   onGenerateBlog: (messages: Message[]) => void;
+  activeTab: 'chat' | 'preview';
+  setActiveTab: (tab: 'chat' | 'preview') => void;
+  blogData: any;
 }
 
-export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
+export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogData }: ChatInterfaceProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -110,18 +113,6 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Mobile-optimized Header */}
-      <div className="border-b border-chat-border bg-card p-3 flex-shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
-            <Bot className="w-3 h-3 text-primary-foreground" />
-          </div>
-          <div>
-            <h2 className="font-medium text-foreground text-sm">AI Blog Assistant</h2>
-            <p className="text-xs text-muted-foreground">Ready to help create your blog</p>
-          </div>
-        </div>
-      </div>
 
       {/* Messages with mobile-optimized scrolling */}
       <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-chat-background mobile-scroll">
@@ -259,10 +250,41 @@ export const ChatInterface = ({ onGenerateBlog }: ChatInterfaceProps) => {
               </div>
             )}
             
-            {/* Chat preview */}
-            <span className="text-xs text-muted-foreground">
-              {inputValue.length > 0 ? `${inputValue.length} chars` : 'Start typing...'}
-            </span>
+            {/* Tab buttons */}
+            <div className="flex gap-1">
+              <Button
+                variant={activeTab === 'chat' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setActiveTab('chat')}
+                className={cn(
+                  "h-7 px-2 text-xs rounded-md",
+                  activeTab === 'chat' 
+                    ? "bg-primary text-primary-foreground" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <MessageSquare className="w-3 h-3 mr-1" />
+                Chat
+              </Button>
+              
+              <Button
+                variant={activeTab === 'preview' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setActiveTab('preview')}
+                className={cn(
+                  "h-7 px-2 text-xs rounded-md relative",
+                  activeTab === 'preview' 
+                    ? "bg-primary text-primary-foreground" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <FileText className="w-3 h-3 mr-1" />
+                Preview
+                {blogData && (
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-success rounded-full"></div>
+                )}
+              </Button>
+            </div>
           </div>
           
           {/* Send button */}
