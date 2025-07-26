@@ -2,145 +2,124 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Blog AI Platform Design System - ChatGPT inspired */
+/* Minimal Black & White Design System */
 
 @layer base {
   :root {
-    /* Dark theme - Fire color palette */
-    --background: 0 0% 7%;
-    --foreground: 0 0% 98%;
+    /* Minimal light theme */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
     
-    /* Chat interface colors - Dark with fire accents */
-    --chat-background: 0 0% 5%;
-    --chat-user-bubble: 14 100% 8%;
-    --chat-ai-bubble: 0 0% 9%;
-    --chat-border: 0 0% 15%;
+    /* Chat interface - minimal */
+    --chat-background: 0 0% 100%;
+    --chat-user-bubble: 0 0% 95%;
+    --chat-ai-bubble: 0 0% 98%;
+    --chat-border: 0 0% 90%;
     
     /* Card and surface colors */
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
     
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
     
-    /* Fire gradient colors */
-    --primary: 14 100% 60%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 31 100% 65%;
+    /* Minimal accent */
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 0 0% 20%;
     
     /* Secondary colors */
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 0%;
     
-    /* Muted colors for less important content */
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    /* Muted colors */
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 50%;
     
     /* Accent colors */
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 95%;
+    --accent-foreground: 0 0% 0%;
     
-    /* Status colors */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    /* Status colors - minimal */
+    --destructive: 0 0% 30%;
+    --destructive-foreground: 0 0% 100%;
     
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
+    --success: 0 0% 20%;
+    --success-foreground: 0 0% 100%;
     
     /* Interactive elements */
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 14 100% 60%;
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --ring: 0 0% 0%;
     
     /* Design tokens */
-    --radius: 0.75rem;
-    
-    /* Fire gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(14 100% 60%), hsl(31 100% 65%), hsl(45 100% 70%));
-    --gradient-fire: linear-gradient(45deg, hsl(14 100% 60%), hsl(31 100% 65%), hsl(45 100% 70%), hsl(14 100% 60%));
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--chat-background)));
-    
-    /* Fire shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(14 100% 60% / 0.1);
-    --shadow-md: 0 4px 6px -1px hsl(14 100% 60% / 0.2);
-    --shadow-lg: 0 10px 15px -3px hsl(14 100% 60% / 0.3);
-    --shadow-glow: 0 0 30px hsl(31 100% 65% / 0.4);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 0 0% 0%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 0%;
   }
 
   .dark {
-    /* Dark mode colors */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Dark mode - inverted minimal */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
     
-    /* Chat interface dark colors */
-    --chat-background: 240 10% 5%;
-    --chat-user-bubble: 240 6% 10%;
-    --chat-ai-bubble: 240 4% 8%;
-    --chat-border: 240 3.7% 15.9%;
+    /* Chat interface dark */
+    --chat-background: 0 0% 0%;
+    --chat-user-bubble: 0 0% 5%;
+    --chat-ai-bubble: 0 0% 2%;
+    --chat-border: 0 0% 10%;
     
     /* Card and surface colors */
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
     
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
     
-    /* Brand colors adjusted for dark mode */
-    --primary: 240 100% 70%;
-    --primary-foreground: 240 10% 3.9%;
-    --primary-glow: 240 100% 80%;
+    /* Minimal accent for dark */
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 0 0% 80%;
     
     /* Secondary colors */
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 5%;
+    --secondary-foreground: 0 0% 100%;
     
     /* Muted colors */
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 0 0% 5%;
+    --muted-foreground: 0 0% 50%;
     
     /* Accent colors */
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 5%;
+    --accent-foreground: 0 0% 100%;
     
     /* Status colors */
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 0% 70%;
+    --destructive-foreground: 0 0% 0%;
     
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
+    --success: 0 0% 80%;
+    --success-foreground: 0 0% 0%;
     
     /* Interactive elements */
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 100% 70%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 0 0% 10%;
+    --input: 0 0% 5%;
+    --ring: 0 0% 100%;
+    
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 5%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 10%;
+    --sidebar-ring: 0 0% 100%;
   }
 }
 

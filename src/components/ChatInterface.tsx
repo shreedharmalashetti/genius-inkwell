@@ -206,7 +206,7 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
           />
         </div>
 
-        {/* Horizontal controls: Plus button, Image preview, Chat preview, Send button */}
+        {/* Horizontal controls: Plus button, Image preview, Tab buttons, Send button */}
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             {/* Plus button for images */}
@@ -224,24 +224,24 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
               variant="ghost"
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
-              className="h-8 w-8 p-0 rounded-full hover:bg-muted/50 flex-shrink-0"
+              className="h-8 w-8 p-0 rounded-full hover:bg-muted flex-shrink-0"
             >
               <Plus className="w-4 h-4" />
             </Button>
             
             {/* Image preview */}
             {selectedImages.length > 0 && (
-              <div className="flex gap-1 max-w-[120px] overflow-x-auto">
+              <div className="flex gap-1 max-w-[80px] overflow-x-auto">
                 {selectedImages.map((file, index) => (
                   <div key={index} className="relative flex-shrink-0">
                     <img
                       src={URL.createObjectURL(file)}
                       alt={`Selected ${index + 1}`}
-                      className="w-6 h-6 object-cover rounded"
+                      className="w-6 h-6 object-cover rounded border border-border"
                     />
                     <button
                       onClick={() => removeImage(index)}
-                      className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full w-3 h-3 flex items-center justify-center text-xs"
+                      className="absolute -top-1 -right-1 bg-foreground text-background rounded-full w-3 h-3 flex items-center justify-center text-xs font-bold"
                     >
                       ×
                     </button>
@@ -249,49 +249,49 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
                 ))}
               </div>
             )}
+          </div>
+          
+          {/* Center: Tab buttons */}
+          <div className="flex gap-1">
+            <Button
+              variant={activeTab === 'chat' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveTab('chat')}
+              className={cn(
+                "h-8 px-3 text-xs rounded-md border",
+                activeTab === 'chat' 
+                  ? "bg-foreground text-background border-foreground" 
+                  : "text-muted-foreground hover:text-foreground border-border"
+              )}
+            >
+              <MessageSquare className="w-3 h-3 mr-1" />
+              Chat
+            </Button>
             
-            {/* Tab buttons */}
-            <div className="flex gap-1">
-              <Button
-                variant={activeTab === 'chat' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setActiveTab('chat')}
-                className={cn(
-                  "h-7 px-2 text-xs rounded-md",
-                  activeTab === 'chat' 
-                    ? "bg-primary text-primary-foreground" 
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <MessageSquare className="w-3 h-3 mr-1" />
-                Chat
-              </Button>
-              
-              <Button
-                variant={activeTab === 'preview' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setActiveTab('preview')}
-                className={cn(
-                  "h-7 px-2 text-xs rounded-md relative",
-                  activeTab === 'preview' 
-                    ? "bg-primary text-primary-foreground" 
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <FileText className="w-3 h-3 mr-1" />
-                Preview
-                {blogData && (
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-success rounded-full"></div>
-                )}
-              </Button>
-            </div>
+            <Button
+              variant={activeTab === 'preview' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setActiveTab('preview')}
+              className={cn(
+                "h-8 px-3 text-xs rounded-md border relative",
+                activeTab === 'preview' 
+                  ? "bg-foreground text-background border-foreground" 
+                  : "text-muted-foreground hover:text-foreground border-border"
+              )}
+            >
+              <FileText className="w-3 h-3 mr-1" />
+              Preview
+              {blogData && (
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-foreground rounded-full"></div>
+              )}
+            </Button>
           </div>
           
           {/* Send button */}
           <Button
             onClick={handleSend}
             disabled={isLoading || (!inputValue.trim() && selectedImages.length === 0)}
-            className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90 flex-shrink-0"
+            className="h-8 w-8 p-0 rounded-full bg-foreground hover:bg-foreground/90 text-background flex-shrink-0 border border-foreground"
           >
             <ArrowUp className="w-4 h-4" fill="currentColor" />
           </Button>
