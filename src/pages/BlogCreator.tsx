@@ -3,9 +3,10 @@ import { ChatInterface } from "@/components/ChatInterface";
 import { BlogPreview } from "@/components/BlogPreview";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, FileText, Sparkles, ArrowLeft } from "lucide-react";
+import { MessageSquare, FileText, Sparkles, ArrowLeft, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 interface Message {
   id: string;
@@ -29,6 +30,7 @@ const BlogCreator = () => {
   const [blogData, setBlogData] = useState<BlogData | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('chat');
+  const { theme, setTheme } = useTheme();
 
   const handleGenerateBlog = async (messages: Message[]) => {
     setIsGenerating(true);
@@ -108,8 +110,23 @@ The key is to view AI not as a replacement for human creativity, but as a powerf
 
   return (
     <div className="h-screen bg-background flex flex-col overflow-hidden">
+      {/* Theme toggle at top right */}
+      <div className="absolute top-4 right-4 z-50">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="h-8 w-8 p-0 rounded-full"
+        >
+          {theme === "dark" ? (
+            <Sun className="w-4 h-4" />
+          ) : (
+            <Moon className="w-4 h-4" />
+          )}
+        </Button>
+      </div>
 
-      {/* Main Content Area */}
+      {/* Main Content Area with consistent spacing */}
       <div className="flex-1 overflow-hidden">
         {activeTab === 'chat' ? (
           <ChatInterface 

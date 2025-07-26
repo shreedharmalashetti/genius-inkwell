@@ -114,8 +114,8 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
   return (
     <div className="flex flex-col h-full">
 
-      {/* Messages with mobile-optimized scrolling */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-chat-background mobile-scroll">
+      {/* Messages with proper spacing */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-chat-background mobile-scroll">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -191,8 +191,8 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Lovable-style Input Area */}
-      <div className="border-t border-chat-border bg-card p-2 flex-shrink-0 safe-area-pb">
+      {/* Input Area with consistent spacing */}
+      <div className="border-t border-chat-border bg-card p-4 flex-shrink-0 safe-area-pb">
         {/* Main input */}
         <div className="mb-2">
           <Textarea
@@ -251,17 +251,17 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
             )}
           </div>
           
-          {/* Center: Tab buttons */}
+          {/* Center: Tab buttons with better styling */}
           <div className="flex gap-1">
             <Button
-              variant={activeTab === 'chat' ? 'default' : 'ghost'}
+              variant={activeTab === 'chat' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActiveTab('chat')}
               className={cn(
-                "h-8 px-3 text-xs rounded-md border",
+                "h-8 px-3 text-xs rounded-md",
                 activeTab === 'chat' 
-                  ? "bg-foreground text-background border-foreground" 
-                  : "text-muted-foreground hover:text-foreground border-border"
+                  ? "bg-muted text-foreground border-border" 
+                  : "text-muted-foreground hover:text-foreground border-border hover:bg-muted/50"
               )}
             >
               <MessageSquare className="w-3 h-3 mr-1" />
@@ -269,14 +269,14 @@ export const ChatInterface = ({ onGenerateBlog, activeTab, setActiveTab, blogDat
             </Button>
             
             <Button
-              variant={activeTab === 'preview' ? 'default' : 'ghost'}
+              variant={activeTab === 'preview' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActiveTab('preview')}
               className={cn(
-                "h-8 px-3 text-xs rounded-md border relative",
+                "h-8 px-3 text-xs rounded-md relative",
                 activeTab === 'preview' 
-                  ? "bg-foreground text-background border-foreground" 
-                  : "text-muted-foreground hover:text-foreground border-border"
+                  ? "bg-muted text-foreground border-border" 
+                  : "text-muted-foreground hover:text-foreground border-border hover:bg-muted/50"
               )}
             >
               <FileText className="w-3 h-3 mr-1" />
